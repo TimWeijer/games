@@ -107,7 +107,7 @@ public class WallRunning : MonoBehaviour
 
         if (upwardsRunning)
             rb.velocity = new Vector3(rb.velocity.x, wallClimbSpeed, rb.velocity.z);
-        if (upwardsRunning)
+        if (downwardsRunning)
             rb.velocity = new Vector3(rb.velocity.x, -wallClimbSpeed, rb.velocity.z);
 
         if (!(wallLeft && horizontalInput > 0) && !(wallRight && horizontalInput > 0))
