@@ -83,7 +83,6 @@ public class PlayerComponent : MonoBehaviour
             rb.drag = groundDrag;
         else
             rb.drag = 0;
-        rb.mass = 2;
     }
 
     private void FixedUpdate()
