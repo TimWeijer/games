@@ -814,7 +814,7 @@ MonoBehaviour:
   minJumpHeight: 2
   exitWallTime: 0.4
   useGravity: 1
-  gravityCounterForce: 3
+  gravityCounterForce: 15
   orientation: {fileID: 865013241}
   cam: {fileID: 963194229}
 --- !u!1 &1561292900
