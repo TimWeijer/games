@@ -11,25 +11,26 @@ public class WeaponHandler : MonoBehaviour
     public GameObject gun1;
     private bool hasGun;
     private GameObject newGun;
+    Ray ray;
 
     private void Update()
     {
         CheckForInput();
     }
 
-    private void FixedUpdate()
-    {
-        if (hasGun)
-        {
-            moveGun();
-        }
-    }
-
     private void CheckForInput()
     {
-        if (Input.GetKeyDown(equipWeapon))
+        if (Input.GetKeyDown(equipWeapon) && !hasGun)
         {
             EquipWeapon();
+        } 
+        else if (Input.GetKeyDown(equipWeapon) && hasGun)
+        {
+            DestroyWeapon();
+        }
+        else if (Input.GetMouseButtonDown(0) && hasGun)
+        {
+            Shoot();
         }
     }
 
@@ -37,12 +38,23 @@ public class WeaponHandler : MonoBehaviour
     {
         newGun = Instantiate(gun1, weaponHolder.transform.position, weaponHolder.transform.rotation);
 
+        newGun.transform.SetParent(weaponHolder.transform);
+
         hasGun = true;
     }
-
-    private void moveGun()
+    private void DestroyWeapon()
     {
-        newGun.transform.position = weaponHolder.transform.position;
-        newGun.transform.rotation = weaponHolder.transform.rotation;
+        Destroy(weaponHolder.transform.GetChild(0).gameObject);
+
+        hasGun = false;
+    }
+
+    private void Shoot()
+    {
+        ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            
+        }
     }
 }
