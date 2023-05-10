@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Sprites;
 
 public class WeaponHandler : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class WeaponHandler : MonoBehaviour
     public GameObject gun1;
     private bool hasGun;
     private GameObject newGun;
+    public Sprite Bullet;
+    public ParticleSystem bulletHitParticle;
     Ray ray;
 
     private void Update()
@@ -54,7 +57,16 @@ public class WeaponHandler : MonoBehaviour
         ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            
+            Debug.Log(hit.normal + " " +  hit.barycentricCoordinate + " " + hit.point);
+            if (hit.collider.gameObject.name == "Enemy")
+            {
+                EnemyHealth healthScript = hit.collider.GetComponentInParent<EnemyHealth>();
+                healthScript.health -= 2;
+            }
+            else
+            {
+               Instantiate(bulletHitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+            }
         }
     }
 }
