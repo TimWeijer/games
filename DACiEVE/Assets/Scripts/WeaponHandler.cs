@@ -14,6 +14,8 @@ public class WeaponHandler : MonoBehaviour
     private GameObject newGun;
     public Sprite Bullet;
     public ParticleSystem bulletHitParticle;
+    public ParticleSystem bloodHitParticle;
+    private GameObject shootPos;
     Ray ray;
 
     private void Update()
@@ -57,11 +59,17 @@ public class WeaponHandler : MonoBehaviour
         ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            Debug.Log(hit.normal + " " +  hit.barycentricCoordinate + " " + hit.point);
-            if (hit.collider.gameObject.name == "Enemy")
+            if (hit.collider.gameObject.transform.parent && hit.collider.gameObject.transform.parent.name == "EnemyHitBox")
             {
                 EnemyHealth healthScript = hit.collider.GetComponentInParent<EnemyHealth>();
-                healthScript.health -= 2;
+                if (hit.collider.gameObject.transform.name != "Head")
+                {
+                    healthScript.health -= 2;
+                } else
+                {
+                    healthScript.health -= 10;
+                }
+                Instantiate(bloodHitParticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
             else
             {
