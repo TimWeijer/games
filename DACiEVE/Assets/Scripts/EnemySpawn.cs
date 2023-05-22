@@ -4,22 +4,45 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    public GameObject enemy;
-    // Start is called before the first frame update
+    public bool Death;
+    public float Timer;
+    public float Cooldown;
+    public GameObject Enemy;
+    public string EnemyName;
+    GameObject LastEnemy;
+    // Use this for initialization
     void Start()
     {
-        Instantiate(enemy, transform);
+        //If you want, add this line:
+        Death = false;
+        this.gameObject.name = EnemyName + "spawn point";
+        Enemy.transform.position = transform.position;
+
+        Instantiate(Enemy);
     }
 
-    public IEnumerator Respawn()
+    // Update is called once per frame
+    void Update()
     {
+        if (Death == true)
+        {
+            //If my enemy is death, a timer will start.
+            Timer += Time.deltaTime;
 
-        Debug.Log("Started wait");
+        }
+        //If the timer is bigger than cooldown.
+        if (Timer >= Cooldown)
+        {
+            //It will create a new Enemy of the same class, at this position.
+            Enemy.transform.position = transform.position;
 
-        yield return new WaitForSeconds(5);
-
-        Debug.Log("Finished, respawning");
-
-        Instantiate(enemy, transform);
+            Instantiate(Enemy);
+            LastEnemy = GameObject.Find(Enemy.name + "(Clone)");
+            LastEnemy.name = EnemyName;
+            //My enemy won't be dead anymore.
+            Death = false;
+            //Timer will restart.
+            Timer = 0;
+        }
     }
 }

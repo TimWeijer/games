@@ -30,7 +30,9 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            StartCoroutine(es.Respawn());
+            Debug.Log(gameObject.name);
+            GameObject.Find(gameObject.name + ("spawn point")).GetComponent<EnemySpawn>().Death = true;
+            //Then destroy it
             Destroy(gameObject);
         }
 
