@@ -9,9 +9,12 @@ public class EnemyHealth : MonoBehaviour
     public float maxHealth;
     public GameObject healthBarUi;
     public Slider slider;
+    private EnemySpawn es;
 
     private void Start()
     {
+        es = transform.parent.GetComponent<EnemySpawn>();
+
         health = maxHealth;
         slider.value = CalculateHealth();
     }
@@ -27,6 +30,7 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
+            StartCoroutine(es.Respawn());
             Destroy(gameObject);
         }
 
@@ -40,4 +44,6 @@ public class EnemyHealth : MonoBehaviour
     {
         return health / maxHealth;
     }
+
+
 }
