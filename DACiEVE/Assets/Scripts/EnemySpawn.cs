@@ -17,8 +17,6 @@ public class EnemySpawn : MonoBehaviour
         Death = false;
         this.gameObject.name = EnemyName + "spawn point";
         Enemy.transform.position = transform.position;
-
-        Instantiate(Enemy);
     }
 
     // Update is called once per frame

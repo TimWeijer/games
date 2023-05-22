@@ -13,8 +13,6 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
-        es = transform.parent.GetComponent<EnemySpawn>();
-
         health = maxHealth;
         slider.value = CalculateHealth();
     }
@@ -30,7 +28,6 @@ public class EnemyHealth : MonoBehaviour
 
         if (health <= 0)
         {
-            Debug.Log(gameObject.name);
             GameObject.Find(gameObject.name + ("spawn point")).GetComponent<EnemySpawn>().Death = true;
             //Then destroy it
             Destroy(gameObject);
