@@ -9,8 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: BloodParticle
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 4
+  m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -74,5 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 0.055385325, b: 0, a: 1}
-    - _EmissionColor: {r: 0.9056604, g: 0.87586063, b: 0.32894266, a: 1}
+    - _EmissionColor: {r: 0.990566, g: 0.040952824, b: 0, a: 1}
   m_BuildTextureStacks: []

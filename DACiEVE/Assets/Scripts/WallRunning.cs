@@ -31,6 +31,7 @@ public class WallRunning : MonoBehaviour
     private RaycastHit rightWallhit;
     private bool wallLeft;
     private bool wallRight;
+    private Vector3 lastNormal;
 
     [Header("Exiting")]
     private bool exitingWall;
@@ -69,7 +70,6 @@ public class WallRunning : MonoBehaviour
     {
         wallRight = Physics.Raycast(transform.position, orientation.right, out rightWallhit, wallCheckDistance, whatIsWall);
         wallLeft = Physics.Raycast(transform.position, -orientation.right, out leftWallhit, wallCheckDistance, whatIsWall);
-
     }
 
     private bool AboveGround()

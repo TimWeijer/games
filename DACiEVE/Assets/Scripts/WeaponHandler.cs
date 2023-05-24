@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class WeaponHandler : MonoBehaviour
     public GameObject gun1;
     private bool hasGun;
     private GameObject newGun;
-    public Sprite Bullet;
+    public GameObject Bullet;
     public ParticleSystem bulletHitParticle;
     public ParticleSystem bloodHitParticle;
     private GameObject shootPos;
@@ -28,7 +29,7 @@ public class WeaponHandler : MonoBehaviour
         if (Input.GetKeyDown(equipWeapon) && !hasGun)
         {
             EquipWeapon();
-        } 
+        }
         else if (Input.GetKeyDown(equipWeapon) && hasGun)
         {
             DestroyWeapon();
@@ -45,6 +46,8 @@ public class WeaponHandler : MonoBehaviour
 
         newGun.transform.SetParent(weaponHolder.transform);
 
+        shootPos = newGun.transform.Find("Shootpoint").gameObject;
+
         hasGun = true;
     }
     private void DestroyWeapon()
@@ -59,13 +62,17 @@ public class WeaponHandler : MonoBehaviour
         ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
+            Vector3 midPoint = Vector3.Lerp(shootPos.transform.position, hit.point, 0.5f);
+            float Distance = Vector3.Distance(hit.point, shootPos.transform.position);
+            Debug.Log(Distance);
             if (hit.collider.gameObject.transform.parent && hit.collider.gameObject.transform.parent.name == "EnemyHitBox")
             {
                 EnemyHealth healthScript = hit.collider.GetComponentInParent<EnemyHealth>();
                 if (hit.collider.gameObject.transform.name != "Head")
                 {
                     healthScript.health -= 2;
-                } else
+                }
+                else
                 {
                     healthScript.health -= 10;
                 }
@@ -73,8 +80,21 @@ public class WeaponHandler : MonoBehaviour
             }
             else
             {
-               Instantiate(bulletHitParticle, hit.point, Quaternion.LookRotation(hit.normal));
+                Instantiate(bulletHitParticle, hit.point, Quaternion.LookRotation(hit.normal));
             }
+            GameObject newBullet = Instantiate(Bullet, midPoint, Quaternion.LookRotation(shootPos.transform.forward));
+            newBullet.transform.localScale = new Vector3(.1f, .1f, Distance);
+            StartCoroutine(RemoveBullet(newBullet));
         }
+    }
+
+    private IEnumerator RemoveBullet(GameObject bullet)
+    {
+        while (bullet.transform.localScale.x > 0 && bullet.transform.localScale.y > 0)
+        {
+            bullet.transform.localScale = new Vector3(bullet.transform.localScale.x - 0.001f * Time.deltaTime, bullet.transform.localScale.y - 0.001f * Time.deltaTime, bullet.transform.localScale.z);
+            yield return null;
+        }
+        Destroy(bullet);
     }
 }

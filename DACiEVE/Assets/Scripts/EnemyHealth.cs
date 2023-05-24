@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
 {
     public float health;
     public float maxHealth;
+    public bool showHealthBar;
     public GameObject healthBarUi;
     public Slider slider;
     private EnemySpawn es;
@@ -21,7 +22,7 @@ public class EnemyHealth : MonoBehaviour
     {
         slider.value = CalculateHealth();
 
-        if (health < maxHealth)
+        if (health < maxHealth && showHealthBar == true)
         {
             healthBarUi.SetActive(true);
         }
