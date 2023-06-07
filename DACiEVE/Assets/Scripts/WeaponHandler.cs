@@ -92,8 +92,8 @@ public class WeaponHandler : MonoBehaviour
     {
         while (bullet.transform.localScale.x > 0 && bullet.transform.localScale.y > 0)
         {
-            bullet.transform.localScale = new Vector3(bullet.transform.localScale.x - 0.001f * Time.deltaTime, bullet.transform.localScale.y - 0.001f * Time.deltaTime, bullet.transform.localScale.z);
-            yield return null;
+            bullet.transform.localScale = new Vector3(bullet.transform.localScale.x - 0.001f, bullet.transform.localScale.y - 0.001f, bullet.transform.localScale.z);
+            yield return new WaitForSeconds(0.001f);
         }
         Destroy(bullet);
     }
