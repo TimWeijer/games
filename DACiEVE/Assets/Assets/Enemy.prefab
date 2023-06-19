@@ -573,8 +573,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 10
   maxHealth: 10
+  showHealthBar: 0
   healthBarUi: {fileID: 1619116262353751632}
   slider: {fileID: 1508319275477909396}
+  pointsGUI: {fileID: 247323045876301562, guid: 5b660d44d0da57949adca7832832dcc4, type: 3}
 --- !u!1 &9083418941270782935
 GameObject:
   m_ObjectHideFlags: 0

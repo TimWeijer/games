@@ -11,9 +11,12 @@ public class EnemyHealth : MonoBehaviour
     public GameObject healthBarUi;
     public Slider slider;
     private EnemySpawn es;
+    Points ps;
+    public GameObject pointsGUI;
 
     private void Start()
     {
+        ps = pointsGUI.GetComponent<Points>();
         health = maxHealth;
         slider.value = CalculateHealth();
     }
@@ -31,7 +34,8 @@ public class EnemyHealth : MonoBehaviour
         {
             GameObject.Find(gameObject.name + ("spawn point")).GetComponent<EnemySpawn>().Death = true;
             //Then destroy it
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            ps.UpdatePoints();
         }
 
         if (health > maxHealth)

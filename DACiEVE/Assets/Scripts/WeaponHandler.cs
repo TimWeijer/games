@@ -64,7 +64,6 @@ public class WeaponHandler : MonoBehaviour
         {
             Vector3 midPoint = Vector3.Lerp(shootPos.transform.position, hit.point, 0.5f);
             float Distance = Vector3.Distance(hit.point, shootPos.transform.position);
-            Debug.Log(Distance);
             if (hit.collider.gameObject.transform.parent && hit.collider.gameObject.transform.parent.name == "EnemyHitBox")
             {
                 EnemyHealth healthScript = hit.collider.GetComponentInParent<EnemyHealth>();

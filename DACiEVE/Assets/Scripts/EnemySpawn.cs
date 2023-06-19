@@ -8,13 +8,15 @@ public class EnemySpawn : MonoBehaviour
     public float Timer;
     public float Cooldown;
     public GameObject Enemy;
-    public string EnemyName;
+    string EnemyName;
     GameObject LastEnemy;
+    
     // Use this for initialization
     void Start()
     {
-        //If you want, add this line:
+        
         Death = false;
+        EnemyName = Enemy.name;
         this.gameObject.name = EnemyName + "spawn point";
         Enemy.transform.position = transform.position;
     }
@@ -25,19 +27,15 @@ public class EnemySpawn : MonoBehaviour
         if (Death == true)
         {
             //If my enemy is death, a timer will start.
+            
             Timer += Time.deltaTime;
 
         }
         //If the timer is bigger than cooldown.
         if (Timer >= Cooldown)
         {
-            //It will create a new Enemy of the same class, at this position.
-            Enemy.transform.position = transform.position;
-
-            Instantiate(Enemy);
-            LastEnemy = GameObject.Find(Enemy.name + "(Clone)");
-            LastEnemy.name = EnemyName;
-            //My enemy won't be dead anymore.
+            Enemy.SetActive(true);
+            Enemy.GetComponent<EnemyHealth>().health = Enemy.GetComponent<EnemyHealth>().maxHealth;
             Death = false;
             //Timer will restart.
             Timer = 0;
